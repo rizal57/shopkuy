@@ -1,4 +1,18 @@
+import Footer from "./components/Footer";
+import Navbar from "./components/Navbar";
+import Sidebar from "./components/Sidebar";
+import ProductList from "./features/ProductList";
+
 const App = () => {
-  return <div>App</div>;
+  return (
+    <div className="flex">
+      <Sidebar />
+      <main className="w-full relative">
+        <Navbar />
+        <ProductList />
+        <Footer />
+      </main>
+    </div>
+  );
 };
 export default App;

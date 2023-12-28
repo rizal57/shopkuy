@@ -1,0 +1,21 @@
+.checkmark::after {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 100%;
+  position: absolute;
+  display: none;
+}
+
+.input-select-label input:checked ~ p {
+  @apply text-teal-500;
+}
+
+.input-select-label input:checked ~ .checkmark::after {
+  display: block;
+  background-color: white;
+}
+
+.input-select-label input:checked ~ .checkmark {
+  @apply bg-teal-500;
+}
