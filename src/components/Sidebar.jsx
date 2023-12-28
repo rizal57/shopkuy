@@ -4,7 +4,7 @@ import Price from "./Price";
 
 const Sidebar = () => {
   return (
-    <aside className="w-64 h-screen sticky top-0 left-0">
+    <aside className="w-64 h-screen sticky top-0 left-0 hidden md:block">
       <div className="bg-white flex flex-col items-center h-full border border-right">
         <div className="h-[60px] flex items-center mb-4">
           <Logo />

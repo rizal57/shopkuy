@@ -2,14 +2,16 @@ import { FaShopify } from "react-icons/fa";
 
 const Logo = () => {
   return (
-    <div>
-      <h1 className="font-bold text-xl text-teal-500 flex items-center gap-2">
-        Shopkuy
+    <>
+      <div className="flex items-center gap-2 text-teal-500">
+        <h1 className="font-bold text-lg md:text-xl hidden md:block">
+          Shopkuy
+        </h1>
         <span>
-          <FaShopify size={30} />
+          <FaShopify className="text-[32px] md:text-[36px]" />
         </span>
-      </h1>
-    </div>
+      </div>
+    </>
   );
 };
 export default Logo;
