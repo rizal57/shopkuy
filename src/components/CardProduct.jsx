@@ -1,8 +1,11 @@
 import { AiFillStar } from "react-icons/ai";
 
-const CardProduct = () => {
+const CardProduct = ({ openModal }) => {
   return (
-    <div className="w-full h-full border rounded-md cursor-pointer bg-white hover:shadow-md hover:-translate-y-1 transition-all duration-300 group">
+    <div
+      onClick={openModal}
+      className="w-full h-full border rounded-md cursor-pointer bg-white hover:shadow-md hover:-translate-y-1 transition-all duration-300 group"
+    >
       <div className="p-2 h-52 mb-3 rounded-md overflow-hidden">
         <img
           src="https://m.media-amazon.com/images/I/6125yAfsJKL._AC_UX575_.jpg"
