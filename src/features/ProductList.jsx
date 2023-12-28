@@ -5,6 +5,7 @@ import { FaFilter } from "react-icons/fa";
 import Modal from "../components/Modal";
 import Categories from "../components/Categories";
 import Price from "../components/Price";
+import ProductDetail from "./ProductDetail";
 
 const ProductList = () => {
   const [openModalProduct, setOpenModalProduct] = useState(false);
@@ -29,7 +30,9 @@ const ProductList = () => {
   return (
     <>
       {openModalProduct ? (
-        <Modal closeModal={handleCloseModalProduct}>Product</Modal>
+        <Modal closeModal={handleCloseModalProduct}>
+          <ProductDetail />
+        </Modal>
       ) : null}
 
       {openModalFilter ? (
