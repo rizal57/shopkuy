@@ -3,7 +3,7 @@ import Logo from "./Logo";
 import Modal from "./Modal";
 import { useState } from "react";
 
-import { TbShoppingCartX } from "react-icons/tb";
+import Cart from "../features/Cart";
 
 const Navbar = () => {
   const [openModalCart, setOpenModalCart] = useState(false);
@@ -29,14 +29,7 @@ const Navbar = () => {
     <>
       {openModalCart ? (
         <Modal closeModal={handleCloseModalCart}>
-          <div className="flex items-center justify-center gap-4 p-4">
-            <p className="font-semibold text-red-500 text-lg">
-              Your cart is empty.
-            </p>
-            <span>
-              <TbShoppingCartX className="text-2xl text-red-500" />
-            </span>
-          </div>
+          <Cart />
         </Modal>
       ) : null}
 

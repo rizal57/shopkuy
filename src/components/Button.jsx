@@ -1,7 +1,17 @@
-const Button = ({ children, text }) => {
+const Button = ({
+  children,
+  padding = "py-2 px-4",
+  bgColor = "bg-teal-500 hover:bg-teal-600",
+  textColor = "text-white",
+  width,
+  height,
+  className,
+}) => {
   return (
-    <button className="py-2 px-4 rounded-md bg-teal-500 text-white hover:bg-teal-600 transition-all duration-300 ease-out">
-      {children || text}
+    <button
+      className={`${padding} ${width} ${height} rounded-md ${bgColor} ${textColor} transition-all duration-300 ease-out ${className}`}
+    >
+      {children}
     </button>
   );
 };

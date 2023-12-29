@@ -14,7 +14,7 @@ const ModalOverlay = ({ children, closeModal }) => {
       <div className="modal relative bg-white p-2 rounded-md w-[90%] md:w-[60%] lg:w-[50%] max-w-3xl max-h-[80%] overflow-y-auto">
         <button
           onClick={closeModal}
-          className="sticky w-7 h-7 rounded-full bg-red-500 hover:bg-red-600 transition-all duration-300 ease-out text-white flex items-center justify-center top-0 right-0 ml-auto"
+          className="sticky w-7 h-7 rounded-full bg-red-500 hover:bg-red-600 transition-all duration-300 ease-out text-white flex items-center justify-center top-0 right-0 ml-auto z-30"
         >
           <IoCloseSharp />
         </button>
