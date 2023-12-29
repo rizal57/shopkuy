@@ -12,15 +12,15 @@ body {
   @apply bg-slate-50;
 }
 
-body::-webkit-scrollbar {
+*::-webkit-scrollbar {
   width: 6px;
 }
 
-body::-webkit-scrollbar-track {
+*::-webkit-scrollbar-track {
   @apply bg-none;
 }
 
-body::-webkit-scrollbar-thumb {
+*::-webkit-scrollbar-thumb {
   @apply bg-teal-500 rounded-sm;
 }
 
