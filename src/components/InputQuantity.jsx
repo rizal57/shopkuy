@@ -11,6 +11,7 @@ const InputQuantity = ({ widthBtn = "w-6", heightBtn = "h-6" }) => {
       <input
         type="number"
         value={1}
+        onChange={() => {}}
         className="w-10 text-center outline-none border-none"
       />
       <button

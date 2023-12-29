@@ -6,8 +6,13 @@ import Modal from "../components/Modal";
 import Categories from "../components/Categories";
 import Price from "../components/Price";
 import ProductDetail from "./ProductDetail";
+import { useEffect } from "react";
+import { data } from "autoprefixer";
 
 const ProductList = () => {
+  const [products, setProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
   const [openModalProduct, setOpenModalProduct] = useState(false);
   const [openModalFilter, setOpenModalFilter] = useState(false);
 
@@ -26,6 +31,27 @@ const ProductList = () => {
   const handleCloseModalProduct = () => {
     setOpenModalProduct(false);
   };
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        setIsLoading(true);
+        const res = await fetch("https://fakestoreapi.com/products");
+        const data = await res.json();
+        setProducts(data);
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchProducts(data);
+  }, []);
+
+  if (isLoading)
+    return <p className="text-center p-4 text-slate-800">Loading...</p>;
+  if (error) return <p className="text-red-500 italic p-4">{error}</p>;
 
   return (
     <>
@@ -64,9 +90,15 @@ const ProductList = () => {
           <p className="text-slate-500 text-base mb-4">All Products</p>
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-1 md:gap-2 lg:gap-3">
-            {Array.from({ length: 12 }, (_, i) => (
-              <CardProduct key={i} openModal={handleOpenModalProduct} />
-            ))}
+            {products.length
+              ? products.map((product) => (
+                  <CardProduct
+                    key={product.id}
+                    product={product}
+                    openModal={handleOpenModalProduct}
+                  />
+                ))
+              : null}
           </div>
         </div>
       </div>

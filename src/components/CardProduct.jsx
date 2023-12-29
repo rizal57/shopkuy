@@ -1,6 +1,7 @@
 import { AiFillStar } from "react-icons/ai";
 
-const CardProduct = ({ openModal }) => {
+const CardProduct = ({ openModal, product }) => {
+  const { title, image, price } = product;
   return (
     <div
       onClick={openModal}
@@ -8,7 +9,7 @@ const CardProduct = ({ openModal }) => {
     >
       <div className="p-2 h-52 mb-3 rounded-md overflow-hidden">
         <img
-          src="https://m.media-amazon.com/images/I/6125yAfsJKL._AC_UX575_.jpg"
+          src={image}
           alt="product"
           className="w-full h-full object-contain rounded-md group-hover:scale-95 transition-all duration-300 ease-out"
         />
@@ -16,7 +17,7 @@ const CardProduct = ({ openModal }) => {
 
       <div className="px-2 pb-4">
         <h3 className="text-base font-semibold text-slate-800">
-          Title of product
+          {title.length > 25 ? title.slice(0, 25) + "..." : title}
         </h3>
         <div className="flex items-center">
           <AiFillStar className="fill-yellow-500 text-base" />
@@ -27,7 +28,7 @@ const CardProduct = ({ openModal }) => {
             (123)
           </span>
         </div>
-        <h1 className="font-bold text-teal-600 text-xl">$150</h1>
+        <h1 className="font-bold text-teal-600 text-xl">${price}</h1>
       </div>
     </div>
   );
