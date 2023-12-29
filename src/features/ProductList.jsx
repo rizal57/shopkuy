@@ -8,16 +8,19 @@ import Price from "../components/Price";
 import ProductDetail from "./ProductDetail";
 import { useEffect } from "react";
 import { data } from "autoprefixer";
+import Loader from "../components/Loader";
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);
+  const [productSelected, setProductSelected] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [openModalProduct, setOpenModalProduct] = useState(false);
   const [openModalFilter, setOpenModalFilter] = useState(false);
 
-  const handleOpenModalProduct = () => {
+  const handleOpenModalProduct = (product) => {
     setOpenModalProduct(true);
+    setProductSelected(product);
   };
 
   const handleOpenModalFilter = () => {
@@ -49,15 +52,15 @@ const ProductList = () => {
     fetchProducts(data);
   }, []);
 
-  if (isLoading)
-    return <p className="text-center p-4 text-slate-800">Loading...</p>;
+  if (isLoading) return <Loader />;
+
   if (error) return <p className="text-red-500 italic p-4">{error}</p>;
 
   return (
     <>
       {openModalProduct ? (
         <Modal closeModal={handleCloseModalProduct}>
-          <ProductDetail />
+          <ProductDetail product={productSelected} />
         </Modal>
       ) : null}
 
@@ -95,7 +98,7 @@ const ProductList = () => {
                   <CardProduct
                     key={product.id}
                     product={product}
-                    openModal={handleOpenModalProduct}
+                    openModal={() => handleOpenModalProduct(product)}
                   />
                 ))
               : null}
