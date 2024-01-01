@@ -1,6 +1,6 @@
 import { useState } from "react";
-import Button from "../components/Button";
-import InputQuantity from "../components/InputQuantity";
+import Button from "../../components/Button";
+import InputQuantity from "../../components/InputQuantity";
 
 const ProductDetail = ({ product }) => {
   const [isExpand, setIsExpand] = useState(false);

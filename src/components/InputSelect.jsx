@@ -1,10 +1,10 @@
 import "./InputSelect.css";
 
-const InputSelect = ({ handleChane, name, value, title }) => {
+const InputSelect = ({ onChange, name, value, title }) => {
   return (
-    <label className="input-select-label relative flex items-center gap-4 cursor-pointer text-slate-600 hover:text-teal-500 group">
+    <label className="input-select-label relative flex items-center gap-4 cursor-pointer text-slate-600 hover:text-teal-500 group capitalize">
       <input
-        onChange={handleChane}
+        onChange={onChange}
         className="hidden"
         type="radio"
         name={name}

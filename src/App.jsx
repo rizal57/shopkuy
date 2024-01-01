@@ -1,7 +1,8 @@
+import { useState } from "react";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
-import ProductList from "./features/ProductList";
+import ProductList from "./features/products/ProductList";
 
 const App = () => {
   return (

@@ -1,22 +1,39 @@
 import { useState } from "react";
-import CardProduct from "../components/CardProduct";
+import CardProduct from "../../components/CardProduct";
 
 import { FaFilter } from "react-icons/fa";
-import Modal from "../components/Modal";
-import Categories from "../components/Categories";
-import Price from "../components/Price";
+import Modal from "../../components/Modal";
+import Categories from "../../components/Categories";
+import Price from "../../components/Price";
 import ProductDetail from "./ProductDetail";
 import { useEffect } from "react";
-import { data } from "autoprefixer";
-import Loader from "../components/Loader";
+import Loader from "../../components/Loader";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import {
+  getProductsFailure,
+  getProductsStart,
+  getProductsSuccess,
+} from "./productSlice";
+import { useMemo } from "react";
 
 const ProductList = () => {
-  const [products, setProducts] = useState([]);
   const [productSelected, setProductSelected] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
+
   const [openModalProduct, setOpenModalProduct] = useState(false);
   const [openModalFilter, setOpenModalFilter] = useState(false);
+
+  const { productItems, isLoading, error } = useSelector(
+    (state) => state.product
+  );
+
+  const {
+    category: selectedCategory,
+    search,
+    shortBy,
+  } = useSelector((state) => state.filter);
+
+  const dispatch = useDispatch();
 
   const handleOpenModalProduct = (product) => {
     setOpenModalProduct(true);
@@ -36,21 +53,42 @@ const ProductList = () => {
   };
 
   useEffect(() => {
+    // Fetch products
     const fetchProducts = async () => {
+      dispatch(getProductsStart());
       try {
-        setIsLoading(true);
-        const res = await fetch("https://fakestoreapi.com/products");
+        const res = await fetch(`${import.meta.env.VITE_API_LINK}/products`);
         const data = await res.json();
-        setProducts(data);
+        dispatch(getProductsSuccess(data));
       } catch (error) {
-        setError(error.message);
-      } finally {
-        setIsLoading(false);
+        dispatch(getProductsFailure(error.message));
       }
     };
 
-    fetchProducts(data);
+    fetchProducts();
   }, []);
+
+  const filteredProducts = useMemo(() => {
+    const filtered = productItems.filter((product) => {
+      const matchedSearch = product.title
+        .toLowerCase()
+        .includes(search.toLowerCase());
+      const matchedCategory =
+        selectedCategory === "all" || product.category === selectedCategory;
+
+      return matchedSearch && matchedCategory;
+    });
+
+    switch (shortBy) {
+      case "a-z":
+        return filtered.slice().short((a, b) => a.title.localeCompare(b.title));
+      case "z-a":
+        return filtered.slice().short((a, b) => b.title.localeCompare(a.title));
+      case "relevance":
+      default:
+        return filtered;
+    }
+  }, [productItems, selectedCategory, search, shortBy]);
 
   if (isLoading) return <Loader />;
 
@@ -71,7 +109,7 @@ const ProductList = () => {
         </Modal>
       ) : null}
 
-      <div className="pt-2 pb-24 px-2 md:px-4 lg:px-8">
+      <div className="pt-2 pb-24 px-2 md:px-4">
         <div>
           <div className="flex items-center justify-between">
             <div>
@@ -90,18 +128,18 @@ const ProductList = () => {
             </div>
           </div>
 
-          <p className="text-slate-500 text-base mb-4">All Products</p>
+          <p className="text-slate-500 text-base mb-4 capitalize">
+            {selectedCategory === "all" ? "All Products" : selectedCategory}
+          </p>
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-1 md:gap-2 lg:gap-3">
-            {products.length
-              ? products.map((product) => (
-                  <CardProduct
-                    key={product.id}
-                    product={product}
-                    openModal={() => handleOpenModalProduct(product)}
-                  />
-                ))
-              : null}
+            {filteredProducts.map((product) => (
+              <CardProduct
+                key={product.id}
+                product={product}
+                openModal={() => handleOpenModalProduct(product)}
+              />
+            ))}
           </div>
         </div>
       </div>

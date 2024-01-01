@@ -4,10 +4,18 @@ import Modal from "./Modal";
 import { useState } from "react";
 
 import Cart from "../features/Cart";
+import { useDispatch } from "react-redux";
+import { setSearch } from "../features/products/filterSlice";
 
 const Navbar = () => {
   const [openModalCart, setOpenModalCart] = useState(false);
   const [openModalProfile, setOpenModalProfile] = useState(false);
+
+  const dispatch = useDispatch();
+
+  const handleSearch = (e) => {
+    dispatch(setSearch(e.target.value));
+  };
 
   const handleCloseModalCart = () => {
     setOpenModalCart(false);
@@ -38,7 +46,7 @@ const Navbar = () => {
       ) : null}
 
       <nav className="w-full sticky top-0 left-0 right-0 z-20">
-        <div className="flex items-center justify-between gap-2 h-[60px] bg-white shadow-sm px-2 md:px-4 lg:px-8">
+        <div className="flex items-center justify-between gap-2 h-[60px] bg-white shadow-sm px-2 md:px-4">
           <div className="md:hidden">
             <Logo />
           </div>
@@ -47,6 +55,7 @@ const Navbar = () => {
             <input
               type="text"
               placeholder="Search..."
+              onChange={handleSearch}
               className="py-1 px-2 w-full rounded-md outline-none placeholder:text-slate-400 bg-white border border-teal-400 focus:border-teal-600 focus:shadow-sm transition-all duration-300 ease-out"
             />
           </div>
